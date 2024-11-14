@@ -119,20 +119,20 @@
         { name: "黄登学", score: 110 }
     ].sort((a, b) => b.score - a.score); // 按分数从高到低排序
 
-    // 根据分数设置颜色，每20分一个分数段
     var colorMap = data.map(item => {
         var score = item.score;
-        if (score >= 180) return '#FF0000'; // 红色
-        if (score >= 160) return '#FF4500'; // 橙色
-        if (score >= 140) return '#FF8C00'; // 浅橙色
-        if (score >= 120) return '#FFD700'; // 金色
-        if (score >= 100) return '#ADFF2F'; // 绿色
-        if (score >= 80) return '#32CD32';  // 浅绿色
-        if (score >= 60) return '#00FA9A';  // 青绿色
-        if (score >= 40) return '#00CED1';  // 浅蓝色
-        if (score >= 20) return '#9370DB';  // 紫色
-        else return '#4682B4';              // 蓝色
+        if (score >= 180) return 'rgb(45, 65, 175)'; // 深蓝色
+        if (score >= 160) return 'rgb(65, 85, 210)'; // 中蓝色
+        if (score >= 140) return 'rgb(86, 110, 230)'; // 主色
+        if (score >= 120) return 'rgb(105, 130, 245)'; // 浅蓝色
+        if (score >= 100) return 'rgb(125, 150, 255)'; // 更浅的蓝色
+        if (score >= 80) return 'rgb(145, 170, 255)';  // 柔和的蓝色
+        if (score >= 60) return 'rgb(165, 190, 255)';  // 更柔和的蓝色
+        if (score >= 40) return 'rgb(185, 210, 255)';  // 更亮的蓝色
+        if (score >= 20) return 'rgb(205, 230, 255)';  // 非常浅的蓝色
+        else return 'rgb(225, 250, 255)'; // 接近白色的浅蓝色
     });
+    
     option = {
         tooltip: {
             trigger: 'item',
