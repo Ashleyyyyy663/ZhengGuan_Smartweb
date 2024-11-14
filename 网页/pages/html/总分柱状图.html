@@ -1,59 +1,168 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js"></script>
 </head>
-
 <body>
-    <h3 style="text-align: center;margin-top:0px;">分数一览</h3>
-    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
-    <div id="main" style="width: 100%;height:360px;"></div>
-    <script type="text/javascript">
-        var chartDom = document.getElementById('main');
-        var myChart = echarts.init(chartDom);
-        var option;
+<!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+<div id="main" style="width: 100%;height:360px;"></div>
+<script type="text/javascript">
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
 
-        option = {
-            tooltip: {
-                trigger: 'item',
-                formatter: '分数: {c}' // 只显示分数，不显示姓名
-            },
-            grid: {
-                top: 10,      // 调整图表顶部距离
-                bottom: 30,   // 调整图表底部距离
-                left: 50,     // 调整图表左侧距离
-                right: 50    // 调整图表右侧距离
-            },
-            xAxis: {
-                type: 'category',
-                data: [], // 不设置数据
-                axisLine: { show: false }, // 隐藏横坐标轴线
-                axisTick: { show: false }, // 隐藏横坐标刻度
-                axisLabel: { show: false } // 隐藏横坐标标签
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [
-                {
-                    data: [
-                        97, 92, 125, 59, 59, 78, 98, 63, 150, 87, 103, 50, 80, 104, 76, 134,
-                        116, 100, 40, 110, 137, 93, 127, 90, 71, 126, 117, 73, 83, 31, 71, 148,
-                        57, 94, 100, 52, 54, 94, 104, 103, 164, 44, 67, 129, 22, 94, 118, 99,
-                        106, 108, 56, 55, 50, 87, 82, 104, 53, 188, 84, 55, 115, 148, 59, 50,
-                        39, 30, 111, 60, 104, 55, 62, 124, 124, 86, 66, 134, 83, 39, 98, 87,
-                        124, 53, 100, 111, 138, 123, 88, 122, 101, 70, 107, 90, 135, 43, 139,
-                        86, 57, 39, 94, 37, 148, 104, 110
-                    ],
-                    type: 'bar'
-                }
-            ]
-        };
+    // 数据排序
+    var data = [
+        { name: "MattiasG.Ottervik", score: 97 },
+        { name: "YunsooLee", score: 92 },
+        { name: "亓子龙", score: 125 },
+        { name: "俞少宾", score: 59 },
+        { name: "倪保志", score: 59 },
+        { name: "农羽青", score: 78 },
+        { name: "冷安丽", score: 98 },
+        { name: "刘华兴", score: 63 },
+        { name: "刘昌明", score: 150 },
+        { name: "刘浩", score: 87 },
+        { name: "刘玉安", score: 103 },
+        { name: "刘琳", score: 50 },
+        { name: "刘鑫", score: 80 },
+        { name: "叶紫蒙", score: 104 },
+        { name: "吕连仁", score: 76 },
+        { name: "吴心喆", score: 134 },
+        { name: "唐睿", score: 116 },
+        { name: "姜杰", score: 100 },
+        { name: "孔令伟", score: 40 },
+        { name: "孔令栋", score: 110 },
+        { name: "孙宗锋", score: 137 },
+        { name: "季丽新", score: 93 },
+        { name: "展妍男", score: 127 },
+        { name: "庞敏", score: 90 },
+        { name: "张乐", score: 71 },
+        { name: "张健彬", score: 126 },
+        { name: "张天舒", score: 117 },
+        { name: "张淑兰", score: 73 },
+        { name: "徐会平", score: 83 },
+        { name: "方炯升", score: 31 },
+        { name: "方雷", score: 71 },
+        { name: "曹现强", score: 148 },
+        { name: "朱林旭", score: 57 },
+        { name: "朱贵昌", score: 94 },
+        { name: "朱靖琰", score: 100 },
+        { name: "李亚洲", score: 52 },
+        { name: "李宏", score: 54 },
+        { name: "李广", score: 94 },
+        { name: "李延伟", score: 104 },
+        { name: "李慧明", score: 103 },
+        { name: "李振", score: 164 },
+        { name: "李文正", score: 44 },
+        { name: "李昕蕾", score: 67 },
+        { name: "李梦丹", score: 129 },
+        { name: "李欢欢", score: 22 },
+        { name: "李济时", score: 94 },
+        { name: "李爽", score: 118 },
+        { name: "李辉", score: 99 },
+        { name: "李进涛", score: 106 },
+        { name: "杨志", score: 108 },
+        { name: "杨春林", score: 56 },
+        { name: "楚成亚", score: 55 },
+        { name: "楼苏萍", score: 50 },
+        { name: "江玮滢", score: 87 },
+        { name: "法帅", score: 82 },
+        { name: "滕玉成", score: 104 },
+        { name: "王乙杰", score: 53 },
+        { name: "王佃利", score: 188 },
+        { name: "王元亮", score: 84 },
+        { name: "王军洋", score: 55 },
+        { name: "王学玉", score: 115 },
+        { name: "王怡", score: 148 },
+        { name: "王成", score: 59 },
+        { name: "王硕", score: 50 },
+        { name: "王薪喜", score: 39 },
+        { name: "王鹏权", score: 30 },
+        { name: "由迪", score: 111 },
+        { name: "白江波", score: 60 },
+        { name: "盛力", score: 104 },
+        { name: "秦亚青", score: 55 },
+        { name: "程龙", score: 62 },
+        { name: "米雪", score: 124 },
+        { name: "罗聪", score: 124 },
+        { name: "胡志伟", score: 86 },
+        { name: "臧秀玲", score: 66 },
+        { name: "蒋锐", score: 134 },
+        { name: "褚雷", score: 83 },
+        { name: "谢东虹", score: 39 },
+        { name: "费立国", score: 98 },
+        { name: "贾小云", score: 87 },
+        { name: "赵婷", score: 124 },
+        { name: "赵志华", score: 53 },
+        { name: "赵玙佳", score: 100 },
+        { name: "边琦", score: 111 },
+        { name: "邢占军", score: 138 },
+        { name: "郄子君", score: 123 },
+        { name: "郑国栋", score: 88 },
+        { name: "郭春生", score: 122 },
+        { name: "金淑霞", score: 101 },
+        { name: "金澄", score: 70 },
+        { name: "钟诚", score: 107 },
+        { name: "陈仁兴", score: 90 },
+        { name: "陈静", score: 135 },
+        { name: "霍文乐", score: 43 },
+        { name: "韩丽华", score: 139 },
+        { name: "韩自强", score: 86 },
+        { name: "马奔", score: 57 },
+        { name: "马永驰", score: 39 },
+        { name: "马荣久", score: 94 },
+        { name: "高原", score: 37 },
+        { name: "黄晴", score: 148 },
+        { name: "黄栋", score: 104 },
+        { name: "黄登学", score: 110 }
+    ].sort((a, b) => b.score - a.score); // 按分数从高到低排序
 
-        option && myChart.setOption(option);
-    </script>
+    // 根据分数设置颜色，每20分一个分数段
+    var colorMap = data.map(item => {
+        var score = item.score;
+        if (score >= 180) return '#FF0000'; // 红色
+        if (score >= 160) return '#FF4500'; // 橙色
+        if (score >= 140) return '#FF8C00'; // 浅橙色
+        if (score >= 120) return '#FFD700'; // 金色
+        if (score >= 100) return '#ADFF2F'; // 绿色
+        if (score >= 80) return '#32CD32';  // 浅绿色
+        if (score >= 60) return '#00FA9A';  // 青绿色
+        if (score >= 40) return '#00CED1';  // 浅蓝色
+        if (score >= 20) return '#9370DB';  // 紫色
+        else return '#4682B4';              // 蓝色
+    });
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: function(params) {
+                var item = data[params.dataIndex];
+                return '姓名: ' + item.name + '<br/>分数: ' + item.score;
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: Array.from({length: data.length}, (_, i) => i + 1),
+            axisLine: { show: false },
+            axisTick: { show: false },
+            axisLabel: { show: false }
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                data: data.map((item, index) => ({
+                    value: item.score,
+                    itemStyle: { color: colorMap[index] }
+                })),
+                type: 'bar'
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+</script>
 </body>
-
 </html>
