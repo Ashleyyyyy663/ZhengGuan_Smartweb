@@ -13,7 +13,7 @@
             color: rgb(51, 51, 51);
         }
         #main {
-            width: 100%;
+            width: 90%;
             height: 400px;
             margin-top: -55px; /* Adjust margin for minimal spacing */
         }
@@ -29,19 +29,28 @@
     var option;
 
     option = {
+        tooltip: {
+            trigger: 'item', // 鼠标悬停时触发
+            formatter: '{b}: {c}' // 显示类别（b）和对应的值（c）
+        },
         yAxis: {
             type: 'category',
-            data: ['副研究员', '讲师','博士后', '助理研究员', '副教授', '教授']
+            data: ['副研究员', '讲师', '博士后', '助理研究员', '副教授', '教授']
         },
         xAxis: {
             type: 'value'
         },
         series: [
             {
-                data:  [1, 5, 14, 16, 30, 37],
+                data: [1, 5, 14, 16, 30, 37],
                 type: 'bar',
                 itemStyle: {
                     color: 'rgb(86,110,230)' // 设置柱状图颜色为 RGB 值 86,110,230
+                },
+                emphasis: {
+                    itemStyle: {
+                        color: 'rgb(255,165,0)' // 悬停时的颜色为橙色
+                    }
                 }
             }
         ]
@@ -50,6 +59,6 @@
     option && myChart.setOption(option);
 </script>
 </body>
-
 </html>
+
 
