@@ -1,22 +1,45 @@
 import streamlit as st
+import streamlit.components.v1 as components
+import os
 
-# 设置页面标题和布局
-st.set_page_config(page_title="文本分析", layout="wide")
 
 st.title("文本分析")
-st.write("这是主页内容")
-
-# 嵌入自定义的JavaScript代码
-html_code = """
-<script src="https://agi-dev-platform-web.bj.bcebos.com/ai_apaas/embed/output/embedFullSDK.js?responseExpires=0"></script>
-<script>
-    window.onload = function() {
-        setTimeout(function() {
-            new EmbedLiteSDK({appId: '3e32fc42-53b6-495d-a739-38b13c50ca6a', code: 'embed3dx7ftgTSl8cQNPH6DsF'});
-        }, 1000);  // 延迟1秒
+st.markdown(
+    """
+    <style>
+    .css-hxt7ib { 
+        display: none;
     }
-</script>
-"""
+    .block-container{
+        padding-bottom:3rem;
+        padding-right:3rem;
+    }
+    </style>
+    
+    """,
+    unsafe_allow_html=True
+)
 
-# 使用st.components.v1.html来嵌入HTML和JS
-st.components.v1.html(html_code, height=300)
+base_path = os.path.join(os.path.dirname(__file__), "html")
+
+with open(os.path.join(base_path, "词语相关图.html"), "r", encoding="utf-8") as file1:
+    content1 = file1.read()
+components.html(
+    content1,
+    height=800,  # 设置足够高度以避免内容裁剪
+    scrolling=True,  # 启用滚动支持
+    width=900
+)  
+
+col1, col2 = st.columns([2,1])
+
+with open(os.path.join(base_path, "词云图.html"), "r", encoding="utf-8") as file2:
+    content2 = file2.read()
+with col1:
+    components.html(content2, height=800,width=600)
+
+
+with open(os.path.join(base_path, "论文年份.html"), "r", encoding="utf-8") as file3:
+    content3 = file3.read()
+with col2:
+    components.html(content3, height=800,width=500)
