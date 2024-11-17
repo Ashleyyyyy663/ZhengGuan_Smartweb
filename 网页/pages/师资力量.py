@@ -21,16 +21,20 @@ with open(os.path.join(base_path, "培养经历.html"), "r", encoding="utf-8") a
     content1 = file1.read()
 components.html(content1, height=500)  
 
+col1, col2 = st.columns([2, 1])
 with open(os.path.join(base_path, "职称情况.html"), "r", encoding="utf-8") as file2:
     content2 = file2.read()
-components.html(content2, height=400)
+with col1:
+    components.html(content2, height=400)
 
-col1, col2 = st.columns(2)
 with open(os.path.join(base_path, "学位情况.html"), "r", encoding="utf-8") as file3:
     content3 = file3.read()
-with col1:
+with col2:
     components.html(content3, height=400)
 
+with open(os.path.join(base_path, "年度回顾.html"), "r", encoding="utf-8") as file4:
+    content4 = file4.read()
+components.html(content4, height=1400)
 
 with open(os.path.join(base_path, "年度回顾.html"), "r", encoding="utf-8") as file4:
     content4 = file4.read()
