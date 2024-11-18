@@ -35,8 +35,3 @@ with col2:
 with open(os.path.join(base_path, "年度回顾.html"), "r", encoding="utf-8") as file4:
     content4 = file4.read()
 components.html(content4, height=1400)
-
-with open(os.path.join(base_path, "年度回顾.html"), "r", encoding="utf-8") as file4:
-    content4 = file4.read()
-with col2:
-    components.html(content4, height=400)
