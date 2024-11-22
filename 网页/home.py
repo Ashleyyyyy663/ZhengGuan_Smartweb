@@ -3,6 +3,25 @@ import importlib
 import importlib.util
 import os
 import sys
+import subprocess
+
+def install_and_import(package):
+    try:
+        importlib.import_module(package)
+    except ImportError:
+        try:
+            print(f"正在安装 {package}...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+            print(f"{package} 安装成功")
+        except Exception as e:
+            print(f"无法安装 {package}: {e}")
+    finally:
+        globals()[package] = importlib.import_module(package)
+
+# 自动检测并安装依赖库
+required_packages = ["jieba", "whoosh"]
+for package in required_packages:
+    install_and_import(package)
 
 def rewrite_streamlit_index(new_content):
     try:
